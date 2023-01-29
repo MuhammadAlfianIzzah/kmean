@@ -75,7 +75,7 @@ class KmeanController extends Controller
             }
         }
         if ($persen) {
-            return ($kluster_min_satu->count() / count($kluster_akhir)) * 100;
+            return (count($kluster_akhir) * 100) / $kluster_min_satu->count();
         } else {
             if ($kluster_min_satu->count() == count($kluster_akhir)) {
                 return true;

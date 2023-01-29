@@ -6,6 +6,7 @@ use App\Imports\DataTransaksiImport;
 use App\Jobs\ImportDataTransaksi;
 use App\Models\TransaksiDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 
@@ -27,7 +28,9 @@ class DataTransaksiController extends Controller
     }
     public function destroy()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         TransaksiDetail::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
         return back()->with('success', 'All good!');
     }
 }

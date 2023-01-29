@@ -20,6 +20,41 @@
             }
         }
     @endphp
+    <div class="row bg-white py-4 px-3">
+        <div class="col-12">
+            <h4 class="mb-2">Data Centroid</h4>
+        </div>
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">nama</th>
+                        <th scope="col">c1</th>
+                        <th scope="col">c2</th>
+                        <th scope="col">c3</th>
+                        <th scope="col">c4</th>
+                        <th scope="col">c5</th>
+                        <th scope="col">c6</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($centroids as $key => $centroid)
+                        <tr>
+                            <th scope="row">{{ $key + 1 }}</th>
+                            <td>{{ $centroid->nama }}</td>
+                            <td>{{ $centroid->c1 ?? '-' }}</td>
+                            <td>{{ $centroid->c2 ?? '-' }}</td>
+                            <td>{{ $centroid->c3 ?? '-' }}</td>
+                            <td>{{ $centroid->c4 ?? '-' }}</td>
+                            <td>{{ $centroid->c5 ?? '-' }}</td>
+                            <td>{{ $centroid->c6 ?? '-' }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
     <div class="row">
         <div class="col-6">
             <canvas id="myChart" width="100" height="50"></canvas>

@@ -155,7 +155,7 @@
                 }]
             };
             const configBarChart = {
-                type: 'bar',
+                type: 'line',
                 data: dataBarChart,
             };
             const configLineChart = {

@@ -154,10 +154,10 @@
                     data: @json($data_chart->pluck('total')),
                     backgroundColor: [
                         '#fdfdfd',
-                        '#fff4e3',
+                        '##fc5185',
                         '#22d1ee',
                         '#ecfffb',
-                        'blue',
+                        '#303a52',
                         '#e8ffe8',
                         'rgba(201, 203, 207, 0.2)'
                     ],

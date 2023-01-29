@@ -6,17 +6,17 @@
             if ($label == 'c1') {
                 return '#fdfdfd';
             } elseif ($label == 'c2') {
-                return '#fff4e3';
+                return '#303a52';
             } elseif ($label == 'c3') {
-                return '#22d1ee';
+                return '#ff8a5c';
             } elseif ($label == 'c4') {
-                return '#ecfffb';
+                return '##3f3b3b';
             } elseif ($label == 'c5') {
                 return 'blue';
             } elseif ($label == 'c6') {
                 return '#e8ffe8';
             } else {
-                return '#5d5d5a';
+                return '#1e2a78';
             }
         }
     @endphp

@@ -96,7 +96,7 @@
             <script>
                 $.ajax({
                     type: 'GET', //THIS NEEDS TO BE GET
-                    url: '/check-progress/' + @json(request('progress_id')),
+                    url: '/kmean-auto/check-progress/' + @json(request('progress_id')),
                     success: function(data) {
                         if (data.data.progress == 100) {
                             let element = document.querySelector(".el-progress").innerHTML = `<div class="alert alert-primary" role="alert">
@@ -105,7 +105,7 @@
                         } else {
                             setTimeout(() => {
                                 location.reload();
-                            }, 5000);
+                            }, 500);
                         }
                     },
                     error: function(xhr, status, error) {

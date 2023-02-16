@@ -18,7 +18,7 @@ class KmeanController extends Controller
 {
     public function index()
     {
-        return view("pages.kmean.hitung_kmean");
+        return view("pages.kmean.auto.hitung_kmean");
     }
     public function prosesKmean(Request $request)
     {
@@ -26,14 +26,12 @@ class KmeanController extends Controller
             "max_literasi" => "required|numeric",
             "jumlah_centroid" => "required|numeric|max:6"
         ]);
-        // dd($attr);
         try {
             $dataProsesId = DataProses::create(["user_id" => auth()->user()->id ?? null])->id;
             $batch = Bus::batch([
                 new ProsesKmeanJob($attr, $dataProsesId),
             ])->then(function (Batch $batch) {
                 return $batch;
-                // All jobs completed successfully...
             })->catch(function (Batch $batch, Throwable $e) {
                 return $batch;
             })->finally(function (Batch $batch) {
@@ -102,12 +100,12 @@ class KmeanController extends Controller
         $data_line_chart = collect($data_line_chart);
         $data_chart = Kluster::where(["literasi" => $max_literasi, "data_proses_id" => $data_proses->id])->select(DB::raw('count(*) as total, c_min'))
             ->groupBy('c_min')->get();
-        return view("pages.kmean.hasil", compact("data_proses", "data_klusters", "data_chart", "data_line_chart"));
+        return view("pages.kmean.auto.hasil", compact("data_proses", "data_klusters", "data_chart", "data_line_chart"));
     }
     public function riwayat()
     {
         $data_proses = DataProses::get();
-        return view("pages.kmean.riwayat", compact("data_proses"));
+        return view("pages.kmean.auto.riwayat", compact("data_proses"));
     }
     public function showByLiterasi(Request $request, $data_proses_id, $literasi)
     {
@@ -116,7 +114,7 @@ class KmeanController extends Controller
         $data_chart = Kluster::where(["literasi" => $literasi, "data_proses_id" => $data_proses_id])->select(DB::raw('count(*) as total, c_min'))
             ->groupBy('c_min')->get();
         $centroids =  Centroid::where(["data_proses_id" => $data_proses_id, "literasi" => $literasi])->get();
-        return view("pages.kmean.hasil.literasi", compact("data_klusters", "data_chart", "centroids"));
+        return view("pages.kmean.auto.hasil.literasi", compact("data_klusters", "data_chart", "centroids"));
     }
 
 

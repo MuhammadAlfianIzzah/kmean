@@ -15,7 +15,6 @@ class DataTransaksiController extends Controller
     public function index()
     {
         $datas = TransaksiDetail::paginate(10);
-        // dd($datas);
         return view("pages.data.index", compact("datas"));
     }
     public function importData(Request $request)

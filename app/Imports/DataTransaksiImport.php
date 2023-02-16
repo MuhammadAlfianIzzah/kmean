@@ -16,15 +16,12 @@ class DataTransaksiImport implements ToModel, WithStartRow
     public function model(array $row)
     {
         return new TransaksiDetail([
-            'tanggal' => $row[0],
-            'produk' => $row[1],
-            'nomor_struk' => $row[2],
-            'nama_operator' => $row[3],
-            'metode_pembayaran' => $row[4],
-            'quantity' => $row[5],
-            'harga' => $row[6],
-            'subtotal' => $row[7],
-            'diskon' => $row[8],
+            'kode' => $row[1],
+            'nama_barang' => $row[2],
+            'stok_awal' => $row[3],
+            'stok_masuk' => $row[4],
+            'ttl_penjualan' => $row[5],
+            'stok_akhir' => $row[6],
         ]);
     }
     public function startRow(): int

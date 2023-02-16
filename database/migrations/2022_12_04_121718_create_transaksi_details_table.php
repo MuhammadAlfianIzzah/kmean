@@ -15,15 +15,12 @@ return new class extends Migration
     {
         Schema::create('transaksi_details', function (Blueprint $table) {
             $table->id();
-            $table->timestamp("tanggal")->default(now())->nullable();
-            $table->string("produk");
-            $table->string("nomor_struk");
-            $table->string("nama_operator");
-            $table->integer("metode_pembayaran");
-            $table->integer("quantity");
-            $table->integer("harga");
-            $table->integer("subtotal");
-            $table->integer("diskon");
+            $table->string("kode");
+            $table->string("nama_barang");
+            $table->integer("stok_awal");
+            $table->integer("stok_masuk");
+            $table->integer("ttl_penjualan");
+            $table->integer("stok_akhir");
             $table->timestamps();
         });
     }

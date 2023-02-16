@@ -3,23 +3,22 @@
 namespace App\Jobs;
 
 use App\Models\Centroid;
+use App\Models\Kluster;
 use App\Models\TransaksiDetail;
+use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Models\DataProses;
-use App\Models\Kluster;
-use App\Models\User;
-use Illuminate\Bus\Batchable;
 
-class ProsesKmeanJob implements ShouldQueue
+class ProsesKmeanManual implements ShouldQueue
 {
     public $attr;
     public $dataProsesId;
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
     /**
      * Create a new job instance.
      *
@@ -41,24 +40,25 @@ class ProsesKmeanJob implements ShouldQueue
         $max_literasi = $this->attr["max_literasi"] ?? 5;
         $countCentroid = $this->attr["jumlah_centroid"];
         $datas = TransaksiDetail::get();
-        // $max =  TransaksiDetail::count() - 1;
+
         $cluster = [];
         for ($key_literasi = 1; $key_literasi <= $max_literasi; $key_literasi++) {
             $centroid_id = [];
             if ($key_literasi === 1) {
-                for ($i = 0; $i < $countCentroid; $i++) {
-                    $produk = $datas[$i];
-                    $centroid =  Centroid::create([
-                        "data_proses_id" => $this->dataProsesId,
-                        "nama" => "c" . $i + 1,
-                        "c1" => $produk->stok_awal,
-                        "c2" => $produk->stok_masuk,
-                        "c3" => $produk->ttl_penjualan,
-                        "c4" => $produk->stok_akhir,
-                        "literasi" => 1
-                    ]);
-                    $centroid_id[] = $centroid->id;
-                }
+                $centroid_id = Centroid::where(["literasi" => $key_literasi, "data_proses_id" => $this->dataProsesId])->get()->pluck("id");
+                // for ($i = 0; $i < $countCentroid; $i++) {
+                //     $produk = $datas[$i];
+                //     $centroid =  Centroid::create([
+                //         "data_proses_id" => $this->dataProsesId,
+                //         "nama" => "c" . $i + 1,
+                //         "c1" => $produk->stok_awal,
+                //         "c2" => $produk->stok_masuk,
+                //         "c3" => $produk->ttl_penjualan,
+                //         "c4" => $produk->stok_akhir,
+                //         "literasi" => 1
+                //     ]);
+                //     $centroid_id[] = $centroid->id;
+                // }
                 foreach ($datas as $data_key => $data) {
                     $cluster[$data_key] = [
                         "data_proses_id" => $this->dataProsesId,
@@ -141,7 +141,7 @@ class ProsesKmeanJob implements ShouldQueue
                 }
                 $jenis_kluster = Kluster::groupBy('c_min')->select(["c_min"])->where(["data_proses_id" => $this->dataProsesId, "literasi" => $key_literasi])->get()->pluck("c_min");
                 foreach ($jenis_kluster as $jk) {
-                    $kluster = Kluster::where(["c_min" => $jk])->get();
+                    $kluster = Kluster::where(["c_min" => $jk, "data_proses_id" => $this->dataProsesId])->get();
                     $ct["c1"] =  $kluster->sum("transaksi_detail.stok_awal") / $kluster->count();
                     $ct["c2"] =  $kluster->sum("transaksi_detail.stok_masuk") / $kluster->count();
                     $ct["c3"] =  $kluster->sum("transaksi_detail.ttl_penjualan") / $kluster->count();

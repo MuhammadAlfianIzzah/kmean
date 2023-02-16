@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class TransaksiDetail extends Model
 {
-    protected $fillable = ["tanggal", "produk", "nomor_struk", "nama_operator", "metode_pembayaran", "quantity", "harga", "subtotal", "diskon"];
+    protected $fillable = ["kode", "nama_barang", "stok_awal", "stok_masuk", "ttl_penjualan", "stok_akhir"];
     use HasFactory;
 }

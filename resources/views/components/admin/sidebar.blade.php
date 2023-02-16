@@ -49,6 +49,7 @@
               <div class="bg-white py-2 collapse-inner rounded">
                   <a class="collapse-item" href="{{ route('hitung.kmean') }}">Hitung Kmean</a>
                   <a class="collapse-item" href="{{ route('riwayat.kmean') }}">Riwayat Perhitungan</a>
+                  <a class="collapse-item" href="{{ route('manual.hitung.kmean') }}">Hitung Kmean munual</a>
               </div>
 
           </div>

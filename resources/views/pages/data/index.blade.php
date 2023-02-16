@@ -52,28 +52,24 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">produk</th>
-                        <th scope="col">nomor_struk</th>
-                        <th scope="col">nama_operator</th>
-                        <th scope="col">metode_pembayaran</th>
-                        <th scope="col">quantity</th>
-                        <th scope="col">harga</th>
-                        <th scope="col">subtotal</th>
-                        <th scope="col">diskon</th>
+                        <th scope="col">kode</th>
+                        <th scope="col">nama_barang</th>
+                        <th scope="col">stok_awal</th>
+                        <th scope="col">stok_masuk</th>
+                        <th scope="col">ttl_penjualan</th>
+                        <th scope="col">stok_akhir</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($datas as $key => $data)
                         <tr>
                             <th scope="row">{{ $datas->firstItem() + $key }}</th>
-                            <td>{{ $data->produk }}</td>
-                            <td>{{ $data->nomor_struk ?? '-' }}</td>
-                            <td>{{ $data->nama_operator ?? '-' }}</td>
-                            <td>{{ $data->metode_pembayaran ?? '-' }}</td>
-                            <td>{{ $data->quantity ?? '-' }}</td>
-                            <td>{{ $data->harga ?? '-' }}</td>
-                            <td>{{ $data->subtotal ?? '-' }}</td>
-                            <td>{{ $data->diskon }}</td>
+                            <td>{{ $data->kode }}</td>
+                            <td>{{ $data->nama_barang ?? '-' }}</td>
+                            <td>{{ $data->stok_awal ?? '-' }}</td>
+                            <td>{{ $data->stok_masuk ?? '-' }}</td>
+                            <td>{{ $data->ttl_penjualan ?? '-' }}</td>
+                            <td>{{ $data->stok_akhir ?? '-' }}</td>
                         </tr>
                     @empty
                         <tr>

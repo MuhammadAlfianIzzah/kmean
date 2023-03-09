@@ -51,22 +51,13 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-md-6 mb-3">
+                                <div class="col-md-12 mb-3">
                                     <label for="c3">c3</label>
                                     <input type="number" step="0.01" class="form-control" id="c3"
                                         name="c3" value="{{ old('c3') }}">
                                     @error('c3')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="c4">c4</label>
-                                    <input type="number" step="0.01" class="form-control" id="c4"
-                                        name="c4" value="{{ old('c4') }}">
-                                    @error('c4')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
-
                                 </div>
                             </div>
                             {{-- <div class="form-group">
@@ -102,7 +93,6 @@
                         <th scope="col">C1</th>
                         <th scope="col">C2</th>
                         <th scope="col">C3</th>
-                        <th scope="col">C4</th>
                         <th scope="col">Literasi</th>
                     </tr>
                 </thead>
@@ -115,7 +105,6 @@
                             <td>{{ $centroid->c1 }}</td>
                             <td>{{ $centroid->c2 }}</td>
                             <td>{{ $centroid->c3 }}</td>
-                            <td>{{ $centroid->c4 }}</td>
                             <td>{{ $centroid->literasi }}</td>
                         </tr>
                     @empty

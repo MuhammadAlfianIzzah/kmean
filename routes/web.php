@@ -32,10 +32,10 @@ Route::middleware('auth')->group(function () {
     Route::get("kmean-auto/hitung-kmean", [KmeanController::class, "index"])->name("hitung.kmean");
     Route::get("kmean-auto/riwayat-kmean", [KmeanController::class, "riwayat"])->name("riwayat.kmean");
     Route::post("kmean-auto/proses-kmean", [KmeanController::class, "prosesKmean"])->name("proses-kmean");
-    Route::get("kmean-auto/hasil-kmean/{data_proses:id}", [KmeanController::class, "hasil"])->name("hasil.kmean");
+    Route::get("kmean/hasil-kmean/{data_proses:id}", [KmeanController::class, "hasil"])->name("hasil.kmean");
     Route::get("kmean-auto/calculate", [KmeanController::class, "calculate"]);
     Route::get("kmean-auto/check-progress/{id}", [KmeanController::class, "checkProgress"]);
-    Route::get("kmean-auto/hasil-kmean/{data_proses_id}/literasi/{literasi}", [KmeanController::class, "showByLiterasi"])->name("show.hasil.kmean.literasi");
+    Route::get("kmean/hasil-kmean/{data_proses_id}/literasi/{literasi}", [KmeanController::class, "showByLiterasi"])->name("show.hasil.kmean.literasi");
     //
 
     // manual

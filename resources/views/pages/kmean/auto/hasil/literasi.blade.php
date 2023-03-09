@@ -33,9 +33,9 @@
                         <th scope="col">c1</th>
                         <th scope="col">c2</th>
                         <th scope="col">c3</th>
-                        <th scope="col">c4</th>
+                        {{-- <th scope="col">c4</th>
                         <th scope="col">c5</th>
-                        <th scope="col">c6</th>
+                        <th scope="col">c6</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -46,20 +46,34 @@
                             <td>{{ $centroid->c1 ?? '-' }}</td>
                             <td>{{ $centroid->c2 ?? '-' }}</td>
                             <td>{{ $centroid->c3 ?? '-' }}</td>
-                            <td>{{ $centroid->c4 ?? '-' }}</td>
+                            {{-- <td>{{ $centroid->c4 ?? '-' }}</td>
                             <td>{{ $centroid->c5 ?? '-' }}</td>
-                            <td>{{ $centroid->c6 ?? '-' }}</td>
+                            <td>{{ $centroid->c6 ?? '-' }}</td> --}}
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-    <div class="row">
+    <div class="row bg-white mt-2 py-4 px-3 mb-2">
+        <div class="col-12">
+            Hasil Perhitungan Cluster
+        </div>
+        <div class="col-12 mt-2">
+            @foreach ($data_chart as $dc)
+                @php
+                    $label = str_split($dc->c_min);
+                    $label = 'Cluster ' . $label[1];
+                @endphp
+                <div class="mb-1"><span class="font-weight-bold">{{ $label }}</span>: {{ $dc->total }}</div>
+            @endforeach
+        </div>
+    </div>
+    {{-- <div class="row">
         <div class="col-6">
             <canvas id="myChart" width="100" height="50"></canvas>
         </div>
-    </div>
+    </div> --}}
     <div class="row bg-white  py-4 px-3">
         <div class="col-12">
             <form action="" method="GET">
@@ -147,42 +161,42 @@
     @endif
     @push('script')
         <script type="text/javascript">
-            const data = {
-                labels: @json($data_chart->pluck('c_min')),
-                datasets: [{
-                    label: 'My First Dataset',
-                    data: @json($data_chart->pluck('total')),
-                    backgroundColor: [
-                        '#fdfdfd',
-                        '#fff4e3',
-                        '#22d1ee',
-                        '#ecfffb',
-                        'blue',
-                        '#e8ffe8',
-                        'rgba(201, 203, 207, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(255, 159, 64)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-                        'rgb(54, 162, 235)',
-                        'rgb(153, 102, 255)',
-                        'rgb(201, 203, 207)'
-                    ],
-                    borderWidth: 1
-                }]
-            };
-            const config = {
-                type: 'line',
-                data: data,
-            };
+            // const data = {
+            //     labels: @json($data_chart->pluck('c_min')),
+            //     datasets: [{
+            //         label: 'My First Dataset',
+            //         data: @json($data_chart->pluck('total')),
+            //         backgroundColor: [
+            //             '#fdfdfd',
+            //             '#fff4e3',
+            //             '#22d1ee',
+            //             '#ecfffb',
+            //             'blue',
+            //             '#e8ffe8',
+            //             'rgba(201, 203, 207, 0.2)'
+            //         ],
+            //         borderColor: [
+            //             'rgb(255, 99, 132)',
+            //             'rgb(255, 159, 64)',
+            //             'rgb(255, 205, 86)',
+            //             'rgb(75, 192, 192)',
+            //             'rgb(54, 162, 235)',
+            //             'rgb(153, 102, 255)',
+            //             'rgb(201, 203, 207)'
+            //         ],
+            //         borderWidth: 1
+            //     }]
+            // };
+            // const config = {
+            //     type: 'line',
+            //     data: data,
+            // };
 
 
-            const myChart = new Chart(
-                document.getElementById('myChart'),
-                config
-            );
+            // const myChart = new Chart(
+            //     document.getElementById('myChart'),
+            //     config
+            // );
         </script>
     @endpush
 </x-admin-layout>

@@ -33,15 +33,44 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="row">
-        <div class="col-6">
-            <canvas id="barChart" width="100" height="50"></canvas>
-        </div>
-        <div class="col-6">
-            <canvas id="lineChart" width="100" height="50"></canvas>
+    <div class="row bg-white">
+        {{-- <div class="col-12">
+            <canvas id="barChart" width="100" height="20"></canvas>
+        </div> --}}
+        <div class="col-12">
+            <canvas id="lineChart" width="100" height="20"></canvas>
         </div>
     </div>
-
+    <div class="row bg-white mt-4 py-4 px-3">
+        <div class="col-12">
+            Hasil Perhitungan Cluster
+        </div>
+        <div class="col-12 mt-2">
+            @foreach ($data_chart as $dc)
+                @php
+                    $label = str_split($dc->c_min);
+                    $label = 'Cluster ' . $label[1];
+                @endphp
+                <div class="mb-1"><span class="font-weight-bold">{{ $label }}</span>: {{ $dc->total }}</div>
+            @endforeach
+        </div>
+    </div>
+    <div class="row bg-white mt-4 pt-4 px-3">
+        <hr>
+        <div class="col-12">
+            Total Iterasi
+        </div>
+    </div>
+    <div class="row bg-white pb-4 px-3">
+        @foreach ($data_klusters as $key => $klusters)
+            <div class="col-4">
+                <a target="_blank"
+                    href="{{ route('show.hasil.kmean.literasi', [$klusters[0]->data_proses_id, $key + 1]) }}"
+                    class="w-100 btn btn-primary">Iterasi {{ $key + 1 }}</a>
+            </div>
+        @endforeach
+    </div>
+    {{--
     <div class="row bg-white py-4 px-3">
         @foreach ($data_klusters as $key => $klusters)
             <div class="mb-3 d-flex w-100 justify-content-between">
@@ -90,7 +119,7 @@
                 {{ $klusters->appends(request()->query())->links() }}
             </div>
         @endforeach
-    </div>
+    </div> --}}
     @if (request('progress_id') !== null)
         @push('script')
             <script>
@@ -118,56 +147,61 @@
     @endif
     @push('script')
         <script type="text/javascript">
-            const dataBarChart = {
-                labels: @json($data_chart->pluck('c_min')),
-                datasets: [{
-                    label: 'BarChart',
-                    data: @json($data_chart->pluck('total')),
-                    backgroundColor: [
-                        '#fdfdfd',
-                        '#fff4e3',
-                        '#22d1ee',
-                        '#ecfffb',
-                        'blue',
-                        '#e8ffe8',
-                        'rgba(201, 203, 207, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(255, 159, 64)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-                        'rgb(54, 162, 235)',
-                        'rgb(153, 102, 255)',
-                        'rgb(201, 203, 207)'
-                    ],
-                    borderWidth: 1
-                }]
-            };
+            // const dataBarChart = {
+            //     labels: @json($data_chart->pluck('c_min')),
+            //     datasets: [{
+            //         label: 'Total Data',
+            //         data: @json($data_chart->pluck('total')),
+            //         backgroundColor: [
+            //             '#fdfdfd',
+            //             '#fff4e3',
+            //             '#22d1ee',
+            //             '#ecfffb',
+            //             'blue',
+            //             '#e8ffe8',
+            //             'rgba(201, 203, 207, 0.2)'
+            //         ],
+            //         borderColor: [
+            //             'rgb(255, 99, 132)',
+            //             'rgb(255, 159, 64)',
+            //             'rgb(255, 205, 86)',
+            //             'rgb(75, 192, 192)',
+            //             'rgb(54, 162, 235)',
+            //             'rgb(153, 102, 255)',
+            //             'rgb(201, 203, 207)'
+            //         ],
+            //         borderWidth: 1
+            //     }]
+            // };
+            let label_literasi = @json($hasilElbow->pluck('literasi'));
+            label_literasi.forEach((ll, key) => {
+                label_literasi[key] = "k" + (key + 2);
+            });
+            console.log(label_literasi);
             const dataLineChart = {
-                labels: @json($data_line_chart->pluck('label')),
+                labels: label_literasi,
                 datasets: [{
-                    label: 'My First Dataset',
-                    data: @json($data_line_chart->pluck('persen')),
+                    label: 'Hasil Elbow',
+                    data: @json($hasilElbow->pluck('total')),
                     fill: false,
                     borderColor: 'rgb(75, 192, 192)',
                     tension: 0.1
                 }]
             };
-            const configBarChart = {
-                type: 'line',
-                data: dataBarChart,
-            };
+            // const configBarChart = {
+            //     type: 'line',
+            //     data: dataBarChart,
+            // };
             const configLineChart = {
                 type: 'line',
                 data: dataLineChart,
             };
 
 
-            const barChart = new Chart(
-                document.getElementById('barChart'),
-                configBarChart
-            );
+            // const barChart = new Chart(
+            //     document.getElementById('barChart'),
+            //     configBarChart
+            // );
             const lineChart = new Chart(
                 document.getElementById('lineChart'),
                 configLineChart

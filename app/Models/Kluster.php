@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kluster extends Model
 {
-    protected $fillable = ["transaksi_detail_id", "nama", "c1", "c2", "c3", "c4", "c5", "c6", "c_min", "literasi", "data_proses_id", "centroid_id"];
+    protected $fillable = ["transaksi_detail_id", "nama", "c1", "c2", "c3", "c4", "c5", "c6", "c_min", "literasi", "data_proses_id", "centroid_id", "nilai_cmin"];
     use HasFactory;
     public function transaksi_detail()
     {

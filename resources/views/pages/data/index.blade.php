@@ -53,11 +53,10 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">kode</th>
-                        <th scope="col">nama_barang</th>
-                        <th scope="col">stok_awal</th>
-                        <th scope="col">stok_masuk</th>
-                        <th scope="col">ttl_penjualan</th>
-                        <th scope="col">stok_akhir</th>
+                        <th scope="col">Nama Barang</th>
+                        <th scope="col">Stok Awal</th>
+                        <th scope="col">Total Penjualan</th>
+                        <th scope="col">Stok Akhir</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,7 +66,6 @@
                             <td>{{ $data->kode }}</td>
                             <td>{{ $data->nama_barang ?? '-' }}</td>
                             <td>{{ $data->stok_awal ?? '-' }}</td>
-                            <td>{{ $data->stok_masuk ?? '-' }}</td>
                             <td>{{ $data->ttl_penjualan ?? '-' }}</td>
                             <td>{{ $data->stok_akhir ?? '-' }}</td>
                         </tr>

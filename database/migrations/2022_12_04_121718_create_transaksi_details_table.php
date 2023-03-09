@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("kode");
             $table->string("nama_barang");
             $table->integer("stok_awal");
-            $table->integer("stok_masuk");
+            // $table->integer("stok_masuk");
             $table->integer("ttl_penjualan");
             $table->integer("stok_akhir");
             $table->timestamps();

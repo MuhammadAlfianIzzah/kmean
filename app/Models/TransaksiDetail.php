@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class TransaksiDetail extends Model
 {
-    protected $fillable = ["kode", "nama_barang", "stok_awal", "stok_masuk", "ttl_penjualan", "stok_akhir"];
+    protected $fillable = ["kode", "nama_barang", "stok_awal", "ttl_penjualan", "stok_akhir"];
     use HasFactory;
 }

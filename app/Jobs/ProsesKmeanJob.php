@@ -38,10 +38,9 @@ class ProsesKmeanJob implements ShouldQueue
      */
     public function handle()
     {
-        $max_literasi = $this->attr["max_literasi"] ?? 5;
+        $max_literasi = $this->attr["max_literasi"] ?? 100;
         $countCentroid = $this->attr["jumlah_centroid"];
         $datas = TransaksiDetail::get();
-        // $max =  TransaksiDetail::count() - 1;
         $cluster = [];
         for ($key_literasi = 1; $key_literasi <= $max_literasi; $key_literasi++) {
             $centroid_id = [];
@@ -52,9 +51,8 @@ class ProsesKmeanJob implements ShouldQueue
                         "data_proses_id" => $this->dataProsesId,
                         "nama" => "c" . $i + 1,
                         "c1" => $produk->stok_awal,
-                        "c2" => $produk->stok_masuk,
-                        "c3" => $produk->ttl_penjualan,
-                        "c4" => $produk->stok_akhir,
+                        "c2" => $produk->ttl_penjualan,
+                        "c3" => $produk->stok_akhir,
                         "literasi" => 1
                     ]);
                     $centroid_id[] = $centroid->id;
@@ -70,9 +68,8 @@ class ProsesKmeanJob implements ShouldQueue
                         $cluster[$data_key]["centroid_id"] = $data_centroid->id;
                         $cluster[$data_key][$data_centroid->nama] = sqrt(
                             pow(($data["stok_awal"] - $data_centroid->c1), 2) +
-                                pow(($data["stok_masuk"] - $data_centroid->c2), 2) +
-                                pow(($data["ttl_penjualan"] - $data_centroid->c3), 2) +
-                                pow(($data["stok_akhir"] - $data_centroid->c4), 2)
+                                pow(($data["ttl_penjualan"] - $data_centroid->c2), 2) +
+                                pow(($data["stok_akhir"] - $data_centroid->c3), 2)
                         );
                     }
                     $datacluster = $cluster[$data_key];
@@ -85,17 +82,16 @@ class ProsesKmeanJob implements ShouldQueue
                         $array = $datacluster;
                         $maxIndex = array_search(min($array), $array);
                         $cluster[$data_key]["c_min"] = $maxIndex;
+                        $cluster[$data_key]["nilai_cmin"] = min($array);
                         Kluster::create($cluster[$data_key]);
                     }
                 }
                 $jenis_kluster = Kluster::groupBy('c_min')->select(["c_min"])->where(["data_proses_id" => $this->dataProsesId, "literasi" => $key_literasi])->get()->pluck("c_min");
                 foreach ($jenis_kluster as $jk) {
                     $kluster = Kluster::where(["c_min" => $jk, "data_proses_id" => $this->dataProsesId])->get();
-
                     $ct["c1"] =  $kluster->sum("transaksi_detail.stok_awal") / $kluster->count();
-                    $ct["c2"] =  $kluster->sum("transaksi_detail.stok_masuk") / $kluster->count();
-                    $ct["c3"] =  $kluster->sum("transaksi_detail.ttl_penjualan") / $kluster->count();
-                    $ct["c4"] =  $kluster->sum("transaksi_detail.stok_akhir") / $kluster->count();
+                    $ct["c2"] =  $kluster->sum("transaksi_detail.ttl_penjualan") / $kluster->count();
+                    $ct["c3"] =  $kluster->sum("transaksi_detail.stok_akhir") / $kluster->count();
                     $ct["nama"] = $jk;
                     $ct["literasi"] = $key_literasi + 1;
                     $ct["data_proses_id"] = $this->dataProsesId;
@@ -114,9 +110,8 @@ class ProsesKmeanJob implements ShouldQueue
                         $cluster[$data_key]["centroid_id"] = $data_centroid->id;
                         $cluster[$data_key][$data_centroid->nama] = sqrt(
                             pow(($data["stok_awal"] - $data_centroid->c1), 2) +
-                                pow(($data["stok_masuk"] - $data_centroid->c2), 2) +
-                                pow(($data["ttl_penjualan"] - $data_centroid->c3), 2) +
-                                pow(($data["stok_akhir"] - $data_centroid->c4), 2)
+                                pow(($data["ttl_penjualan"] - $data_centroid->c2), 2) +
+                                pow(($data["stok_akhir"] - $data_centroid->c3), 2)
                         );
                     }
                     $datacluster = $cluster[$data_key];
@@ -129,9 +124,9 @@ class ProsesKmeanJob implements ShouldQueue
                         $array = $datacluster;
                         $maxIndex = array_search(min($array), $array);
                         $cluster[$data_key]["c_min"] = $maxIndex;
+                        $cluster[$data_key]["nilai_cmin"] = min($array);
                         Kluster::create($cluster[$data_key]);
                     }
-
                     if ($key_literasi !=  2) {
                         $selesai = $this->calculate($this->dataProsesId, $key_literasi - 1, $key_literasi);
                         if ($selesai) {
@@ -143,9 +138,8 @@ class ProsesKmeanJob implements ShouldQueue
                 foreach ($jenis_kluster as $jk) {
                     $kluster = Kluster::where(["c_min" => $jk])->get();
                     $ct["c1"] =  $kluster->sum("transaksi_detail.stok_awal") / $kluster->count();
-                    $ct["c2"] =  $kluster->sum("transaksi_detail.stok_masuk") / $kluster->count();
-                    $ct["c3"] =  $kluster->sum("transaksi_detail.ttl_penjualan") / $kluster->count();
-                    $ct["c4"] =  $kluster->sum("transaksi_detail.stok_akhir") / $kluster->count();
+                    $ct["c2"] =  $kluster->sum("transaksi_detail.ttl_penjualan") / $kluster->count();
+                    $ct["c3"] =  $kluster->sum("transaksi_detail.stok_akhir") / $kluster->count();
                     $ct["nama"] = $jk;
                     $ct["literasi"] = $key_literasi + 1;
                     $ct["data_proses_id"] = $this->dataProsesId;

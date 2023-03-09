@@ -27,6 +27,7 @@ return new class extends Migration
             $table->float("c5")->nullable();
             $table->float("c6")->nullable();
             $table->string("c_min")->nullable();
+            $table->float("nilai_cmin")->nullable();
             $table->string("literasi")->nullable();
             $table->timestamps();
         });

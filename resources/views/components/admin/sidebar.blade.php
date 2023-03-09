@@ -48,8 +48,8 @@
           <div id="kmean" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
               <div class="bg-white py-2 collapse-inner rounded">
                   <a class="collapse-item" href="{{ route('hitung.kmean') }}">Hitung Kmean</a>
-                  <a class="collapse-item" href="{{ route('riwayat.kmean') }}">Riwayat Perhitungan</a>
                   <a class="collapse-item" href="{{ route('manual.hitung.kmean') }}">Hitung Kmean munual</a>
+                  <a class="collapse-item" href="{{ route('riwayat.kmean') }}">Riwayat Perhitungan</a>
               </div>
 
           </div>

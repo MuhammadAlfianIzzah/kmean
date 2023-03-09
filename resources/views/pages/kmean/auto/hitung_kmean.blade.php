@@ -6,15 +6,15 @@
             <form method="POST" action="{{ route('proses-kmean') }}">
                 @method('POST')
                 @csrf
-                <div class="form-group">
-                    <label for="max_literasi">Max Literasi</label>
-                    <input type="number" value="{{ old('max_literasi') }}" class="form-control" name="max_literasi"
-                        id="max_literasi">
-                    @error('max_literasi')
-                        <small class="form-text text-danger">
-                            {{ $message }}</small>
-                    @enderror
-                </div>
+                {{-- <div class="form-group"> --}}
+                {{-- <label for="max_literasi">Max Literasi</label> --}}
+                <input type="hidden" value="{{ old('max_literasi') ?? 100 }}" class="form-control" name="max_literasi"
+                    id="max_literasi">
+                {{-- @error('max_literasi') --}}
+                {{-- <small class="form-text text-danger"> --}}
+                {{-- {{ $message }}</small> --}}
+                {{-- @enderror --}}
+                {{-- </div> --}}
                 <div class="form-group">
                     <label for="jumlah_centroid">Jumlah Centroid</label>
                     <input type="number" value="{{ old('jumlah_centroid') }}" class="form-control"

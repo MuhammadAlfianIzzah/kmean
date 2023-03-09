@@ -97,10 +97,16 @@ class KmeanController extends Controller
                 ];
             }
         }
+
+        $hasilElbow = Kluster::where(["data_proses_id" => $data_proses->id])->select(DB::raw('sum(nilai_cmin) as total, literasi'))->groupBy('literasi')->get();
+        // dd($dataProses);
+        // dd("oke");
+        // dd($hasilElbow->pluck("literasi"));
         $data_line_chart = collect($data_line_chart);
         $data_chart = Kluster::where(["literasi" => $max_literasi, "data_proses_id" => $data_proses->id])->select(DB::raw('count(*) as total, c_min'))
             ->groupBy('c_min')->get();
-        return view("pages.kmean.auto.hasil", compact("data_proses", "data_klusters", "data_chart", "data_line_chart"));
+
+        return view("pages.kmean.auto.hasil", compact("data_proses", "data_klusters", "data_chart", "data_line_chart", "hasilElbow"));
     }
     public function riwayat()
     {

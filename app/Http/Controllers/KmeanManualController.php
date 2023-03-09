@@ -45,7 +45,6 @@ class KmeanManualController extends Controller
             "c1" => "required|numeric",
             "c2" => "required|numeric",
             "c3" => "required|numeric",
-            "c4" => "required|numeric",
             "literasi" => "required",
         ]);
         Centroid::create($attr);

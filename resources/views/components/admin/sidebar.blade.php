@@ -1,4 +1,4 @@
-  <ul class="navbar-nav bg-white sidebar sidebar-light accordion" id="accordionSidebar">
+  <ul style="background-color: #2d6cdf" class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">

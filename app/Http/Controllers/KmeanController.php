@@ -104,7 +104,7 @@ class KmeanController extends Controller
         // dd($hasilElbow->pluck("literasi"));
         $data_line_chart = collect($data_line_chart);
         $data_chart = Kluster::where(["literasi" => $max_literasi, "data_proses_id" => $data_proses->id])->select(DB::raw('count(*) as total, c_min'))
-            ->groupBy('c_min')->get();
+            ->groupBy('c_min')->orderBy("c_min")->get();
 
         return view("pages.kmean.auto.hasil", compact("data_proses", "data_klusters", "data_chart", "data_line_chart", "hasilElbow"));
     }
@@ -118,7 +118,7 @@ class KmeanController extends Controller
 
         $data_klusters = Kluster::where(["data_proses_id" => $data_proses_id, "literasi" => $literasi])->filter(request(["search", "c_min"]))->paginate(10);
         $data_chart = Kluster::where(["literasi" => $literasi, "data_proses_id" => $data_proses_id])->select(DB::raw('count(*) as total, c_min'))
-            ->groupBy('c_min')->get();
+            ->groupBy('c_min')->orderBy("c_min")->get();
         $centroids =  Centroid::where(["data_proses_id" => $data_proses_id, "literasi" => $literasi])->get();
         return view("pages.kmean.auto.hasil.literasi", compact("data_klusters", "data_chart", "centroids"));
     }

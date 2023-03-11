@@ -63,7 +63,7 @@
     </div>
     <div class="row bg-white pb-4 px-3">
         @foreach ($data_klusters as $key => $klusters)
-            <div class="col-4">
+            <div class="col-4 mb-2">
                 <a target="_blank"
                     href="{{ route('show.hasil.kmean.literasi', [$klusters[0]->data_proses_id, $key + 1]) }}"
                     class="w-100 btn btn-primary">Iterasi {{ $key + 1 }}</a>

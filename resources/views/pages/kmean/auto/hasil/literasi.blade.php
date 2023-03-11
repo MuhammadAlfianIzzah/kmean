@@ -82,7 +82,7 @@
                         aria-label="Search" name="search" value="{{ old('search') ?? request('search') }}"
                         aria-describedby="basic-addon2">
                     <select class="custom-select" name="c_min">
-                        <option disabled selected>Filter By c_min</option>
+                        <option disabled selected>Filter By Cluster</option>
                         @foreach ($data_chart->pluck('c_min') as $value)
                             <option {{ request('c_min') == $value ? 'selected' : '' }} value="{{ $value }}">
                                 {{ $value }}</option>
@@ -107,23 +107,23 @@
                         <th scope="col">c1</th>
                         <th scope="col">c2</th>
                         <th scope="col">c3</th>
-                        <th scope="col">c4</th>
+                        {{-- <th scope="col">c4</th>
                         <th scope="col">c5</th>
-                        <th scope="col">c6</th>
-                        <th scope="col">c_min</th>
+                        <th scope="col">c6</th> --}}
+                        <th scope="col">Cluster</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data_klusters as $key => $kluster)
-                        <tr style="background-color: <?= setColor($kluster->c_min) ?>">
+                        <tr>
                             <th scope="row">{{ $data_klusters->firstItem() + $key }}</th>
                             <td>{{ $kluster->nama }}</td>
                             <td>{{ $kluster->c1 ?? '-' }}</td>
                             <td>{{ $kluster->c2 ?? '-' }}</td>
                             <td>{{ $kluster->c3 ?? '-' }}</td>
-                            <td>{{ $kluster->c4 ?? '-' }}</td>
+                            {{-- <td>{{ $kluster->c4 ?? '-' }}</td>
                             <td>{{ $kluster->c5 ?? '-' }}</td>
-                            <td>{{ $kluster->c6 ?? '-' }}</td>
+                            <td>{{ $kluster->c6 ?? '-' }}</td> --}}
                             <td>{{ $kluster->c_min }}</td>
                         </tr>
                     @endforeach

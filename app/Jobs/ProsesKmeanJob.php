@@ -106,7 +106,10 @@ class ProsesKmeanJob implements ShouldQueue
                         "nama" => $data["nama_barang"],
                     ];
                     foreach ($centroid_id as $ct_id) {
-                        $data_centroid = Centroid::where("id", $ct_id)->first();
+                        $data_centroid = Centroid::where([
+                            "id" => $ct_id,
+                            "data_proses_id" => $this->dataProsesId,
+                        ])->first();
                         $cluster[$data_key]["centroid_id"] = $data_centroid->id;
                         $cluster[$data_key][$data_centroid->nama] = sqrt(
                             pow(($data["stok_awal"] - $data_centroid->c1), 2) +
@@ -134,9 +137,14 @@ class ProsesKmeanJob implements ShouldQueue
                         }
                     }
                 }
-                $jenis_kluster = Kluster::groupBy('c_min')->select(["c_min"])->where(["data_proses_id" => $this->dataProsesId, "literasi" => $key_literasi])->get()->pluck("c_min");
+                $jenis_kluster = Kluster::groupBy('c_min')->select(["c_min"])->where([
+                    "data_proses_id" => $this->dataProsesId, "literasi" => $key_literasi
+                ])->get()->pluck("c_min");
                 foreach ($jenis_kluster as $jk) {
-                    $kluster = Kluster::where(["c_min" => $jk])->get();
+                    $kluster = Kluster::where([
+                        "c_min" => $jk,
+                        "data_proses_id" => $this->dataProsesId,
+                    ])->get();
                     $ct["c1"] =  $kluster->sum("transaksi_detail.stok_awal") / $kluster->count();
                     $ct["c2"] =  $kluster->sum("transaksi_detail.ttl_penjualan") / $kluster->count();
                     $ct["c3"] =  $kluster->sum("transaksi_detail.stok_akhir") / $kluster->count();
@@ -154,7 +162,9 @@ class ProsesKmeanJob implements ShouldQueue
         $kluster_min_satu = Kluster::select(["nama", "c_min"])->where(["literasi" => $literasi_satu, "data_proses_id" => $data_proses_id])->get();
         $kluster_akhir = [];
         foreach ($kluster_min_satu  as $kluster_min) {
-            $data = Kluster::where(["nama" => $kluster_min->nama, "c_min" => $kluster_min->c_min, "data_proses_id" => $data_proses_id, "literasi" => $literasi_dua]);
+            $data = Kluster::where([
+                "nama" => $kluster_min->nama, "c_min" => $kluster_min->c_min, "data_proses_id" => $data_proses_id, "literasi" => $literasi_dua
+            ]);
             if ($data->exists()) {
                 $kluster_akhir[] = $data->first();
             }

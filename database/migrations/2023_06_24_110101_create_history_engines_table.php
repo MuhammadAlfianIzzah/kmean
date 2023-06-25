@@ -13,13 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transaksi_details', function (Blueprint $table) {
+        Schema::create('history_engines', function (Blueprint $table) {
             $table->id();
             $table->string("kode");
             $table->string("nama_barang");
             $table->integer("stok_awal");
             $table->integer("ttl_penjualan");
             $table->integer("stok_akhir");
+            $table->integer("cluster")->nullable();
+            $table->foreignUuid('engine_id')->references("id")->on("engines")->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transaksi_details');
+        Schema::dropIfExists('history_engines');
     }
 };

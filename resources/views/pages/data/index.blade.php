@@ -1,10 +1,11 @@
 <x-admin-layout>
-    <h4>Data Transaksi</h4>
-    <small class="form-text text-muted">{{ $datas->total() != 0 ? $datas->perPage() : 0 }} dari
-        {{ $datas->total() }}</small>
+    <x-slot name="title">
+        Data Transaksi
+    </x-slot>
 
     <div class="row bg-white py-4 px-3">
         <div class="col-8 mb-2 d-flex">
+
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#Importdata">
                 Import Data

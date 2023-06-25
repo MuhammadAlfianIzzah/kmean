@@ -1,6 +1,7 @@
 <x-admin-layout>
-    <h4>Hitung Kmean</h4>
-
+    <x-slot name="title">
+        Hitung Kmean Automatis
+    </x-slot>
     <div class="row bg-white py-4 px-3">
         <div class="col-12">
             <form method="POST" action="{{ route('proses-kmean') }}">

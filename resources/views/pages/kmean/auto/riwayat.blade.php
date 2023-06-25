@@ -1,8 +1,9 @@
 <x-admin-layout>
-    <h4>Hitung Kmean</h4>
-
+    <x-slot name="title">
+        Riwayat Kmean
+    </x-slot>
     <div class="row bg-white py-4 px-3">
-        @foreach ($data_proses as $data)
+        @forelse ($data_proses as $data)
             <div class="col-4">
                 <div class="card">
                     <div class="card-body">
@@ -12,6 +13,10 @@
                         class="btn btn-primary">DETAIL</a>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="alert alert-warning w-100" role="alert">
+                Riwayat Belum Ada
+            </div>
+        @endforelse
     </div>
 </x-admin-layout>

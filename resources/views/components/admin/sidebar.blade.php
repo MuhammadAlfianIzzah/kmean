@@ -55,7 +55,21 @@
           </div>
 
       </li>
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#engine" aria-expanded="true"
+              aria-controls="engine">
+              <i class="fa-solid fa-database"></i>
+              <span>Engine</span>
+          </a>
+          <div id="engine" class="collapse" aria-labelledby="headingTwo" data-parent="#engine">
+              <div class="bg-white py-2 collapse-inner rounded">
+                  <a class="collapse-item" href="{{ route('engine.index') }}">Engine</a>
+              </div>
 
+          </div>
+
+      </li>
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">

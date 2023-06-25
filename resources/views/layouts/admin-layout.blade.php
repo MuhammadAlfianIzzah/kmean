@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Blank</title>
+    <title>{{ $title ?? 'Halaman Dashboard' }}</title>
 
     <!-- Custom fonts for this template-->
     {{-- <link href="{{ asset('assets/admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css"> --}}
@@ -43,7 +43,15 @@
                 <!-- Topbar -->
                 @include('components.admin.topbar')
                 <!-- End of Topbar -->
-
+                <div class="container bg-white mb-2 shadow-sm">
+                    <div class="row d-flex align-items-center py-3 bg-white">
+                        <div class="col-12">
+                            <div class="alert alert-light" role="alert" style="border-left: 4px black solid">
+                                {{ $title ?? 'Halaman Dashboard' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 

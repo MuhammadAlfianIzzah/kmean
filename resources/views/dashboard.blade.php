@@ -1,7 +1,8 @@
 <x-admin-layout>
-    <h4 class="text-bold text-dark">Dashboard</h4>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae sint voluptates porro rerum reprehenderit
-        fugiat minus, veniam hic cum consectetur?</p>
+    <x-slot name="title">
+        Dashboard
+    </x-slot>
+
     <div class="row">
         <div class="col-6">
             <div class="card">

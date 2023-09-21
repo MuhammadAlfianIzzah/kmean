@@ -55,9 +55,9 @@
                         <th scope="col">#</th>
                         <th scope="col">kode</th>
                         <th scope="col">Nama Barang</th>
+                        <th scope="col">Margin</th>
                         <th scope="col">Stok Awal</th>
                         <th scope="col">Total Penjualan</th>
-                        <th scope="col">Stok Akhir</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -66,9 +66,9 @@
                             <th scope="row">{{ $datas->firstItem() + $key }}</th>
                             <td>{{ $data->kode }}</td>
                             <td>{{ $data->nama_barang ?? '-' }}</td>
+                            <td>{{ $data->stok_akhir ?? '-' }}</td>
                             <td>{{ $data->stok_awal ?? '-' }}</td>
                             <td>{{ $data->ttl_penjualan ?? '-' }}</td>
-                            <td>{{ $data->stok_akhir ?? '-' }}</td>
                         </tr>
                     @empty
                         <tr>

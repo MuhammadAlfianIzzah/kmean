@@ -60,9 +60,9 @@
                             <th scope="col">#</th>
                             <th scope="col">kode</th>
                             <th scope="col">nama_barang</th>
-                            <th scope="col">stok_awal</th>
-                            <th scope="col">ttl_penjualan</th>
-                            <th scope="col">stok_akhir</th>
+                            <th scope="col">Margin</th>
+                            <th scope="col">Stok Awal</th>
+                            <th scope="col">Total Penjualan</th>
                             <th scope="col">cluster</th>
                             <th scope="col">engine_id</th>
                         </tr>
@@ -74,9 +74,9 @@
                                 </th>
                                 <td>{{ $he->kode }}</td>
                                 <td>{{ $he->nama_barang }}</td>
+                                <td>{{ $he->stok_akhir }}</td>
                                 <td>{{ $he->stok_awal }}</td>
                                 <td>{{ $he->ttl_penjualan }}</td>
-                                <td>{{ $he->stok_akhir }}</td>
                                 <td>{{ $he->cluster }}</td>
                                 <td>{{ $he->engine_id }}</td>
                             </tr>

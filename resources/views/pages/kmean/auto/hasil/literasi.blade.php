@@ -1,5 +1,5 @@
 <x-admin-layout>
-    <h4>Hasil Kmean</h4>
+    <h4 class="py-3">Hasil Kmean</h4>
     @php
         function setColor($label)
         {
@@ -60,13 +60,16 @@
             Hasil Perhitungan Cluster
         </div>
         <div class="col-12 mt-2">
-            @foreach ($data_chart as $dc)
+            <div class="col-12">
+                <canvas id="barChar" width="100" height="20"></canvas>
+            </div>
+            {{-- @foreach ($data_chart as $dc)
                 @php
                     $label = str_split($dc->c_min);
                     $label = 'Cluster ' . $label[1];
                 @endphp
                 <div class="mb-1"><span class="font-weight-bold">{{ $label }}</span>: {{ $dc->total }}</div>
-            @endforeach
+            @endforeach --}}
         </div>
     </div>
     {{-- <div class="row">
@@ -161,42 +164,38 @@
     @endif
     @push('script')
         <script type="text/javascript">
-            // const data = {
-            //     labels: @json($data_chart->pluck('c_min')),
-            //     datasets: [{
-            //         label: 'My First Dataset',
-            //         data: @json($data_chart->pluck('total')),
-            //         backgroundColor: [
-            //             '#fdfdfd',
-            //             '#fff4e3',
-            //             '#22d1ee',
-            //             '#ecfffb',
-            //             'blue',
-            //             '#e8ffe8',
-            //             'rgba(201, 203, 207, 0.2)'
-            //         ],
-            //         borderColor: [
-            //             'rgb(255, 99, 132)',
-            //             'rgb(255, 159, 64)',
-            //             'rgb(255, 205, 86)',
-            //             'rgb(75, 192, 192)',
-            //             'rgb(54, 162, 235)',
-            //             'rgb(153, 102, 255)',
-            //             'rgb(201, 203, 207)'
-            //         ],
-            //         borderWidth: 1
-            //     }]
-            // };
-            // const config = {
+            const databarChar = {
+                labels: @json($data_chart->pluck('c_min')),
+                datasets: [{
+                    label: 'Hasil Elbow',
+                    data: @json($data_chart->pluck('total')),
+                    // fill: false,
+                    tension: 0.1,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                    ],
+                }],
+
+            };
+            // const configBarChart = {
             //     type: 'line',
-            //     data: data,
+            //     data: dataBarChart,
             // };
-
-
-            // const myChart = new Chart(
-            //     document.getElementById('myChart'),
-            //     config
-            // );
+            const configbarChar = {
+                type: 'bar',
+                data: databarChar,
+            };
+            const barChar = new Chart(
+                document.getElementById('barChar'),
+                configbarChar
+            );
         </script>
     @endpush
 </x-admin-layout>
